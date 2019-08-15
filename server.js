@@ -4,7 +4,7 @@ let path = require('path');
 const readline = require('readline')
 let app = express();
 
-//write logic, refactor later, eg : double space!, spearate file ?
+//TODO : constarints, user convenience , double space!, spearate file ?;
 
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -17,8 +17,15 @@ app.listen( 8000,()=> serverCallBack() )
 
 const serverCallBack = () => {
     //Server start mesage
-    console.log('Server running on port 8000\n\n\n');
+    console.clear();
+    console.log('\n\nServer running on port 8000\n\n\n');
     console.log(' T - test cases count\n N - number of toffes in a box \n K - the number of toffees you have to eat everyday to survive \n S - the number of days you need to survive\n\n');
+    console.log(`Constraints\n
+    1 ≤ T ≤ 100\n
+    1 ≤ N ≤ 100\n
+    1 ≤ K ≤ 100\n
+    1 ≤ S ≤ 1000\n\n`);
+    //Server start mesage
 
     let testCasesCount;
     let testCasesData = [];
@@ -30,7 +37,7 @@ const serverCallBack = () => {
 
     const question1 = () => {
         return new Promise((resolve, reject) => {
-                rl.question('Enter Value of T', (answer) => {
+                rl.question('Enter Value of T\n', (answer) => {
                 resolve(testCasesCount = answer)
             })
         })
@@ -38,7 +45,7 @@ const serverCallBack = () => {
 
     const question2 = () => {
         return new Promise((resolve, reject) => {
-                rl.question('Enter values of N,K,S separated by single space!', (answer) => {  
+                rl.question('Enter values of N,K,S separated by single space!\n', (answer) => {  
                 let isValid = true;  
                 let testCaseArray = answer.split(' ');
                 if(testCaseArray.length !== 3){
@@ -50,7 +57,7 @@ const serverCallBack = () => {
                     }
                 })
                 if(!isValid){
-                    console.log('invalid Input!\n\n Try Again');
+                    console.log('\nInvalid Input!\n\n Try Again\n');
                     getUserFeedBack();
                     return;
                 }
@@ -69,7 +76,7 @@ const serverCallBack = () => {
         await question1();
 
         if(Number(testCasesCount) === 0 || isNaN(testCasesCount)){
-            console.log('invalid Input!\n\n Try Again');
+            console.log('\nInvalid Input!\n\n Try Again\n');
             getUserFeedBack();
             return;
         }
