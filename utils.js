@@ -1,5 +1,4 @@
 const readline = require('readline');
-
 const execute = () => {
     console.log(`
         T - test cases count\n 
@@ -73,13 +72,16 @@ const execute = () => {
     getUserFeedBack();
 
     const calculateResult = (data) => {
-        //but fot 7 days in 6 days
-        //6 day buy == 7 day eat, cool
-        //6 day buy > 7 day eat, cool, add balance, 6daybuy-7dayeat to next weak's 6day buy.
-        //6 day buy < 7 day eat, -1
-        //cannot buy in multiple of 7 day.
-        console.log(data)
+        data.forEach(useCase => {
+            //calcute day i can survive on 1st, buy
+            //calcute day i can survive on 2nd, buy...+ add remaing from prev buy of there.
+            //cannot buy in multiple of 7th day.
+            //assuming correct input from here.
+            useCaseArray = String(useCase).split(' ');
+            console.log(useCaseArray)
+        })
     }
+
 }
 
 module.exports = execute;
