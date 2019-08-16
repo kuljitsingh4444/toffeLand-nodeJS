@@ -5,6 +5,8 @@ let buyCount = 0;
 let dayCount = 0;
 let boughtPreviousDay = true;
 
+//TODO : constarints, user convenience , double space!
+
 const execute = () => {
     console.log(`
         T - test cases count\n 
@@ -93,20 +95,25 @@ const execute = () => {
         console.log(toffeInHand,requirementPerDay,daysLeft)
         const daysSurvived = Math.floor(toffeInHand/requirementPerDay);
         if(daysSurvived > 0) {
-            console.log('no buy')
+            //no buy
             const daysRemaining = daysLeft - daysSurvived;
             boughtPreviousDay = false;
             if( daysRemaining < 0 || daysRemaining === 0 ) {
                 // servives
                 return;
             }
-            dayCount = Number(dayCount) + Number(daysSurvived)
+            dayCount = Number(dayCount) + Number(daysSurvived);
             getData(toffeInHand%requirementPerDay, requirementPerDay, daysRemaining);
         } else {
             //7 th day case.
             //2 consective buys - failure!!
             if(!boughtPreviousDay){
-                console.log('buy')
+                if(dayCount % 7 === 6) {
+                    //cannot buy on sunday, dies;
+                    buyCount = -1;
+                    return;
+                }
+                //buy
                 buyCount = Number(buyCount) + 1;
                 getData(Number(toffeInHand)+Number(boxCapacity), requirementPerDay, daysLeft);
                 boughtPreviousDay = true;
