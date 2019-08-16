@@ -3,6 +3,7 @@ let requirementPerDay = 0;
 let boxCapacity = 0;
 let buyCount = 0; 
 let dayCount = 0;
+let boughtPreviousDay = true;
 
 const execute = () => {
     console.log(`
@@ -89,25 +90,32 @@ const execute = () => {
     }
 
     const getData = (toffeInHand,requirementPerDay,daysLeft) => {
+        console.log(toffeInHand,requirementPerDay,daysLeft)
         const daysSurvived = Math.floor(toffeInHand/requirementPerDay);
         if(daysSurvived > 0) {
+            console.log('no buy')
             const daysRemaining = daysLeft - daysSurvived;
+            boughtPreviousDay = false;
             if( daysRemaining < 0 || daysRemaining === 0 ) {
-                // console.log('survives')
+                // servives
                 return;
             }
             dayCount = Number(dayCount) + Number(daysSurvived)
             getData(toffeInHand%requirementPerDay, requirementPerDay, daysRemaining);
         } else {
-            // console.log('buy')
             //7 th day case.
-            //2 consective buys - failure!
-            buyCount = Number(buyCount) + 1;
-            getData(Number(toffeInHand)+Number(boxCapacity), requirementPerDay, daysLeft);
-            //buy
-            // console.log(dayCount)
+            //2 consective buys - failure!!
+            if(!boughtPreviousDay){
+                console.log('buy')
+                buyCount = Number(buyCount) + 1;
+                getData(Number(toffeInHand)+Number(boxCapacity), requirementPerDay, daysLeft);
+                boughtPreviousDay = true;
+            } else {
+                //consecutive buys not allowed, dies
+                buyCount = -1;
+                return;
+            }
         }
-        // console.log(buyCount)
     }
 
 }
