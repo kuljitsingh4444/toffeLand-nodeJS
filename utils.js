@@ -30,7 +30,7 @@ const execute = () => {
 
     const question1 = () => {
         return new Promise((resolve, reject) => {
-                rl.question('Enter Value of T\n', (answer) => {
+                rl.question('Enter Value of T without spaces\n', (answer) => {
                 resolve(testCasesCount = answer)
             })
         })
@@ -38,7 +38,7 @@ const execute = () => {
 
     const question2 = () => {
         return new Promise((resolve, reject) => {
-                rl.question('Enter values of N,K,S separated by single space!\n', (answer) => {  
+                rl.question('Enter values of N,K,S separated by single space only !\n', (answer) => {  
                 let isValid = true;  
                 let testCaseArray = answer.split(' ');
                 if(testCaseArray.length !== 3){
