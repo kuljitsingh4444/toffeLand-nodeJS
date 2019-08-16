@@ -4,8 +4,6 @@ let path = require('path');
 let app = express();
 const execute = require('./utils');
 
-//TODO : constarints, user convenience , double space!, spearate file ?;
-
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.use(bParser.json());
