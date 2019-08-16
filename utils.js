@@ -1,4 +1,7 @@
 const readline = require('readline');
+let requirementPerDay = 0;
+let boxCapacity = 0;
+let buyCount = 0, dayCount = 0;
 const execute = () => {
     console.log(`
         T - test cases count\n 
@@ -73,13 +76,30 @@ const execute = () => {
 
     const calculateResult = (data) => {
         data.forEach(useCase => {
-            //calcute day i can survive on 1st, buy
-            //calcute day i can survive on 2nd, buy...+ add remaing from prev buy of there.
-            //cannot buy in multiple of 7th day.
-            //assuming correct input from here.
             useCaseArray = String(useCase).split(' ');
-            console.log(useCaseArray)
+            boxCapacity = useCaseArray[0];
+            requirementPerDay = useCaseArray[1];
+            let daysLeft = useCaseArray[2];
+            buyCount++; //first buy
+            getData(boxCapacity,requirementPerDay,daysLeft);
         })
+    }
+
+    const getData = (toffeInHand,requirementPerDay,daysLeft) => {
+        const daysSurvived = Math.floor(toffeInHand/requirementPerDay);
+        if(daysSurvived > 0) {
+            const daysRemaining = daysLeft - daysSurvived;
+            //if days remaining are over, done it!
+            dayCount += daysSurvived;
+            getData(toffeInHand%requirementPerDay, requirementPerDay, daysRemaining);
+        } else {
+            //7 th day case.
+            //2 consective buys ??
+            // buyCount++;
+            // getData(toffeInHand+boxCapacity, requirementPerDay, daysLeft);
+            //buy
+            // console.log(dayCount)
+        }
     }
 
 }
