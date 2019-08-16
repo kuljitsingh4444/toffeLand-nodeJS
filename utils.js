@@ -1,7 +1,9 @@
 const readline = require('readline');
 let requirementPerDay = 0;
 let boxCapacity = 0;
-let buyCount = 0, dayCount = 0;
+let buyCount = 0; 
+let dayCount = 0;
+
 const execute = () => {
     console.log(`
         T - test cases count\n 
@@ -69,7 +71,8 @@ const execute = () => {
         }
         await multipleQuestions();
         rl.close();
-        calculateResult(testCasesData)
+        await calculateResult(testCasesData)
+        console.log(buyCount)
     }
 
     getUserFeedBack();
@@ -80,7 +83,7 @@ const execute = () => {
             boxCapacity = useCaseArray[0];
             requirementPerDay = useCaseArray[1];
             let daysLeft = useCaseArray[2];
-            buyCount++; //first buy
+            buyCount = Number(buyCount) + 1;
             getData(boxCapacity,requirementPerDay,daysLeft);
         })
     }
@@ -89,17 +92,22 @@ const execute = () => {
         const daysSurvived = Math.floor(toffeInHand/requirementPerDay);
         if(daysSurvived > 0) {
             const daysRemaining = daysLeft - daysSurvived;
-            //if days remaining are over, done it!
-            dayCount += daysSurvived;
+            if( daysRemaining < 0 || daysRemaining === 0 ) {
+                // console.log('survives')
+                return;
+            }
+            dayCount = Number(dayCount) + Number(daysSurvived)
             getData(toffeInHand%requirementPerDay, requirementPerDay, daysRemaining);
         } else {
+            // console.log('buy')
             //7 th day case.
-            //2 consective buys ??
-            // buyCount++;
-            // getData(toffeInHand+boxCapacity, requirementPerDay, daysLeft);
+            //2 consective buys - failure!
+            buyCount = Number(buyCount) + 1;
+            getData(Number(toffeInHand)+Number(boxCapacity), requirementPerDay, daysLeft);
             //buy
             // console.log(dayCount)
         }
+        // console.log(buyCount)
     }
 
 }
