@@ -18,7 +18,7 @@ app.listen( 8000,()=> serverCallBack() )
 const serverCallBack = () => {
     //Server start mesage
     console.clear();
-    console.log('\nServer running on port 8000\n\n');
+    console.log('\nServer running on port 8000\n');
     //execute code from here
     execute();
 }

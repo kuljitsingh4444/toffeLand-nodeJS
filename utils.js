@@ -1,13 +1,17 @@
 const readline = require('readline');
 
 const execute = () => {
-    
-    console.log(' T - test cases count\n N - number of toffes in a box \n K - the number of toffees you have to eat everyday to survive \n S - the number of days you need to survive\n\n');
-    console.log(`Constraints\n
-    1 ≤ T ≤ 100\n
-    1 ≤ N ≤ 100\n
-    1 ≤ K ≤ 100\n
-    1 ≤ S ≤ 1000\n\n`);
+    console.log(`
+        T - test cases count\n 
+        N - number of toffes in a box \n 
+        K - the number of toffees you have to eat everyday to survive \n 
+        S - the number of days you need to survive\n\n
+        Constraints\n
+        1 ≤ T ≤ 100\n
+        1 ≤ N ≤ 100\n
+        1 ≤ K ≤ 100\n
+        1 ≤ S ≤ 1000\n\n`
+    );
 
     let testCasesCount;
     let testCasesData = [];
@@ -56,21 +60,26 @@ const execute = () => {
 
     const getUserFeedBack = async () => {
         await question1();
-
         if(Number(testCasesCount) === 0 || isNaN(testCasesCount)){
             console.log('\nInvalid Input!\n\n Try Again\n');
             getUserFeedBack();
             return;
         }
-
         await multipleQuestions();
-
-        console.log(testCasesData);
-
         rl.close();
+        calculateResult(testCasesData)
     }
 
     getUserFeedBack();
+
+    const calculateResult = (data) => {
+        //but fot 7 days in 6 days
+        //6 day buy == 7 day eat, cool
+        //6 day buy > 7 day eat, cool, add balance, 6daybuy-7dayeat to next weak's 6day buy.
+        //6 day buy < 7 day eat, -1
+        //cannot buy in multiple of 7 day.
+        console.log(data)
+    }
 }
 
 module.exports = execute;
