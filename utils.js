@@ -5,8 +5,6 @@ let buyCount = 0;
 let dayCount = 0;
 let boughtPreviousDay = true;
 
-//TODO : constarints, user convenience , double space!
-
 const execute = () => {
     console.log(`
         T - test cases count\n 
@@ -31,7 +29,12 @@ const execute = () => {
     const question1 = () => {
         return new Promise((resolve, reject) => {
                 rl.question('Enter Value of T without spaces\n', (answer) => {
-                resolve(testCasesCount = answer)
+                if(Number(answer) > 0 && Number(answer) < 101){
+                    resolve(testCasesCount = answer);
+                } else {
+                    getUserFeedBack();
+                    return;
+                }
             })
         })
     }
@@ -52,6 +55,23 @@ const execute = () => {
                 if(!isValid){
                     console.log('\nInvalid Input!\n\n Try Again\n');
                     getUserFeedBack();
+                    testCasesData = [];
+                    return;
+                }
+                let isRangeValid = true;
+                if(!(Number(testCaseArray[0]) > 0 && Number(testCaseArray[0]) < 101)){
+                    isRangeValid = false
+                }
+                if(!(Number(testCaseArray[1]) > 0 && Number(testCaseArray[1]) < 101)){
+                    isRangeValid = false
+                }
+                if(!(Number(testCaseArray[2]) > 0 && Number(testCaseArray[2]) < 1001)){
+                    isRangeValid = false
+                }
+                if(!isRangeValid){
+                    console.log('\nInvalid Range!\n\n Try Again\n');
+                    getUserFeedBack();
+                    testCasesData = [];
                     return;
                 }
                 resolve(testCasesData.push(answer));
