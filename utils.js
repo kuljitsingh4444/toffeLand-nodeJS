@@ -75,13 +75,19 @@ const execute = () => {
         await multipleQuestions();
         rl.close();
         await calculateResult(testCasesData)
-        console.log(buyCount)
     }
 
     getUserFeedBack();
 
     const calculateResult = (data) => {
         data.forEach(useCase => {
+            //reset data
+            requirementPerDay = 0;
+            boxCapacity = 0;
+            buyCount = 0; 
+            dayCount = 0;
+            boughtPreviousDay = true;
+
             useCaseArray = String(useCase).split(' ');
             boxCapacity = useCaseArray[0];
             requirementPerDay = useCaseArray[1];
@@ -92,7 +98,7 @@ const execute = () => {
     }
 
     const getData = (toffeInHand,requirementPerDay,daysLeft) => {
-        console.log(toffeInHand,requirementPerDay,daysLeft)
+        // console.log(toffeInHand,requirementPerDay,daysLeft)
         const daysSurvived = Math.floor(toffeInHand/requirementPerDay);
         if(daysSurvived > 0) {
             //no buy
@@ -100,6 +106,7 @@ const execute = () => {
             boughtPreviousDay = false;
             if( daysRemaining < 0 || daysRemaining === 0 ) {
                 // servives
+                console.log(buyCount);
                 return;
             }
             dayCount = Number(dayCount) + Number(daysSurvived);
@@ -110,7 +117,7 @@ const execute = () => {
             if(!boughtPreviousDay){
                 if(dayCount % 7 === 6) {
                     //cannot buy on sunday, dies;
-                    buyCount = -1;
+                    console.log('-1');
                     return;
                 }
                 //buy
@@ -119,7 +126,7 @@ const execute = () => {
                 boughtPreviousDay = true;
             } else {
                 //consecutive buys not allowed, dies
-                buyCount = -1;
+                console.log('-1');
                 return;
             }
         }
